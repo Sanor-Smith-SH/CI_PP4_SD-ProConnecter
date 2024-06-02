@@ -5,25 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ServiceTisement</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        .footer {
-            background-color: #f8f9fa;
-            padding: 20px 0;
-        }
-        .footer a {
-            color: #000;
-            margin: 0 15px;
-            font-size: 1.5rem;
-        }
-        .footer a:hover {
-            color: #007bff;
-        }
-        .footer .copyright {
-            margin-top: 10px;
-            font-size: 0.875rem;
-        }
-    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -45,29 +26,29 @@
             </ul>
         </div>
     </nav>
+
     <div class="container">
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}" role="alert">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
         {% block content %}
         {% endblock %}
     </div>
-    <footer class="footer mt-auto py-3">
-        <div class="container text-center">
-            <div>
-                <a href="https://github.com/your-profile" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/your-profile" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="https://www.facebook.com/your-profile" target="_blank"><i class="fab fa-facebook"></i></a>
+
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+                </div>
             </div>
-            <div class="copyright">
-                © 2024 Copyright: Sanor S.
+            <div class="row">
+                <div class="col text-center">
+                    <p>&copy; 2024 Copyright: Sanor S.</p>
+                </div>
             </div>
         </div>
     </footer>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

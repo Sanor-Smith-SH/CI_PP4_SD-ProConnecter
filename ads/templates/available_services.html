@@ -1,17 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="mt-4">
-    <h2>Available Services</h2>
-    <form method="GET" action="{% url 'available_services' %}" class="form-inline mb-3">
-        <label class="my-1 mr-2" for="occupation">Filter by Occupation:</label>
-        <select class="custom-select my-1 mr-sm-2" id="occupation" name="occupation">
-            <option value="" selected>Choose...</option>
-            {% for occupation in occupations %}
-                <option value="{{ occupation }}">{{ occupation }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit" class="btn btn-primary my-1">Filter</button>
+<div class="container mt-4">
+    <h2 class="text-center">Available Services</h2>
+    <form method="GET" action="{% url 'available_services' %}">
+        <div class="form-group">
+            <label for="occupation">Select Occupation</label>
+            <select class="form-control" id="occupation" name="occupation" onchange="this.form.submit()">
+                <option value="">All Occupations</option>
+                {% for occupation in occupations %}
+                    <option value="{{ occupation }}" {% if request.GET.occupation == occupation %}selected{% endif %}>{{ occupation }}</option>
+                {% endfor %}
+            </select>
+        </div>
     </form>
     <div class="row">
         {% for service in services %}
@@ -20,13 +21,10 @@
                     <img src="{{ service.featured_image.url }}" class="card-img-top" alt="{{ service.title }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ service.title }}</h5>
-                        <p class="card-text">{{ service.description|truncatewords:30 }}</p>
-                        <a href="#" class="btn btn-primary">Contact: {{ service.contact_info }}</a>
+                        <p class="card-text">{{ service.description }}</p>
                     </div>
                 </div>
             </div>
-        {% empty %}
-            <p>No services found for the selected occupation.</p>
         {% endfor %}
     </div>
 </div>

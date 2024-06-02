@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Operations</h2>
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-secondary" onclick="showAddService()">Add Service</button>
+        <button type="button" class="btn btn-secondary" onclick="showUpdateService()">Update Service</button>
+        <button type="button" class="btn btn-secondary" onclick="showRemoveService()">Remove Service</button>
+    </div>
+    <div id="operation-form" class="mt-4">
+        <!-- Forms will be injected here by JavaScript -->
+    </div>
+</div>
+
+<script>
+function showAddService() {
+    document.getElementById('operation-form').innerHTML = `
+        <form method="POST" action="{% url 'add_service' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" name="description" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="occupation">Occupation</label>
+                <select class="form-control" id="occupation" name="occupation" required>
+                    <option value="construction">Construction</option>
+                    <option value="exterior">Exterior</option>
+                    <option value="interior">Interior</option>
+                    <option value="renovation">Renovation</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="contact_info">Contact Info</label>
+                <input type="text" class="form-control" id="contact_info" name="contact_info" required>
+            </div>
+            <div class="form-group">
+                <label for="featured_image">Featured Image</label>
+                <input type="file" class="form-control-file" id="featured_image" name="featured_image">
+            </div>
+            <button type="submit" class="btn btn-primary">Add Service</button>
+        </form>
+    `;
+}
+
+function showUpdateService() {
+    document.getElementById('operation-form').innerHTML = `
+        <form method="POST" action="/update-service/" enctype="multipart/form-data" id="update-service-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="service_id">Service ID</label>
+                <input type="number" class="form-control" id="service_id" name="service_id" required>
+            </div>
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" name="description" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="occupation">Occupation</label>
+                <select class="form-control" id="occupation" name="occupation" required>
+                    <option value="construction">Construction</option>
+                    <option value="exterior">Exterior</option>
+                    <option value="interior">Interior</option>
+                    <option value="renovation">Renovation</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="contact_info">Contact Info</label>
+                <input type="text" class="form-control" id="contact_info" name="contact_info" required>
+            </div>
+            <div class="form-group">
+                <label for="featured_image">Featured Image</label>
+                <input type="file" class="form-control-file" id="featured_image" name="featured_image">
+            </div>
+            <button type="submit" class="btn btn-primary">Update Service</button>
+        </form>
+    `;
+}
+
+function showRemoveService() {
+    document.getElementById('operation-form').innerHTML = `
+        <form method="POST" action="/remove-service/" id="remove-service-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="service_id">Service ID</label>
+                <input type="number" class="form-control" id="service_id" name="service_id" required>
+            </div>
+            <button type="submit" class="btn btn-danger">Remove Service</button>
+        </form>
+    `;
+}
+
+document.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const form = event.target;
+
+    if (form.id === 'update-service-form') {
+        const serviceId = form.service_id.value;
+        form.action = `/update-service/${serviceId}/`;
+    } else if (form.id === 'remove-service-form') {
+        const serviceId = form.service_id.value;
+        form.action = `/remove-service/${serviceId}/`;
+    }
+
+    form.submit();
+});
+</script>
+{% endblock %}
